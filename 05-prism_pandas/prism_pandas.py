@@ -18,17 +18,17 @@ class Prism():
     def fit(self, label=[]):
         data, attributes = (self._cvt.loc[:], self._cvt.columns)
         if not label:
-          label = attributes[-1]
+             label = attributes[-1]
         
         # classes stores all possible values for the class
         # ex: class 'contact-lenses' can be 'none', 'soft' or 'hard', so classes = ['none','soft','hard']
-        classes = self._cvt[label].cat.categories    
+        classes = self._cvt[label].cat.categories    #C
         
         # R is a list that stores all the rules
         R = []
         for cls in classes:
             # instances are the rows of the dataset
-            instances = data[:]      
+            instances = data[:]      #E
             while self.__has_class_value(instances, label, cls):
                 #print("instances: " + str(len(instances)))
                 rule, covered = self.__build_rule(instances, attributes, label, cls)
@@ -94,7 +94,7 @@ class Prism():
     # Computes p/t
     def __rule_accuracy(self, coverage, label, cls):
         if len(coverage) == 0:
-          return 0.0, 0
+             return 0.0, 0
         accuracy = coverage[coverage[label]==cls]
         return float(len(accuracy))/len(coverage), len(accuracy)
 
